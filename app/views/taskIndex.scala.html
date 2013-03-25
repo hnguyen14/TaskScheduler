@@ -1,0 +1,68 @@
+@taskMain("Task Admin") {
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="brand" href="#">
+					<div class="logo">
+						<div></div>
+					</div>
+					Task Scheduler
+				</a>
+				<a id="newTaskBtn" class="btn btn-success pull-right" href="#">New Task</a>
+			</div>
+		</div>
+		<div id="dashboard">
+			<div class="container">
+				<div id="newTask">
+					 <form class="form-horizontal">
+					 	<div class="control-group">
+					 		<label class="control-label" for="taskName">Task Name</label>
+					 		<div class="controls">
+					 			<input type="text" id="taskName">
+					 		</div>
+					 	</div>
+					 	<div class="control-group">
+					 		<label class="control-label" for="className">Class Name</label>
+					 		<div class="controls">
+					 			<input type="text" id="className">
+					 		</div>
+					 	</div>
+					 	<div class="control-group">
+					 		<label class="control-label" for="taskParam">Task Parameters</label>
+					 		<div class="controls">
+					 			<textarea id="taskParam"></textarea>
+					 		</div>
+					 	</div>
+					 	<div class="control-group">
+					 		<label class="control-label" for="startTime">Start Time</label>
+					 		<div class="controls">
+					 			<input type="text" id="startTime">
+					 			<span class="help-block">MM/DD/YYYY HH:MM:SS</span>
+					 		</div>
+					 	</div>
+					 	<div class="control-group">
+					 		<label class="control-label" for="interval">Interval</label>
+					 		<div class="controls">
+					 			<input type="text" id="interval">
+					 			<span class="help-block">-1 for non periodic tasks</span>
+					 		</div>
+					 	</div>
+					 	<div class="form-actions">
+							<button type="submit" class="btn btn-primary submit">Submit</button>
+						 	<button class="btn cancel">Cancel</button>
+					 	</div>
+					 </form>
+				</div>
+				<table class="tasks table table-bordered table-hover">
+					<tr>
+						<th class="span2"> Name </th>
+						<th class="span4"> Classname </th>
+						<th class="span3"> Param </th>
+						<th class="span2"> Next Start </th>
+						<th class="span1"> Interval </th>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+}
