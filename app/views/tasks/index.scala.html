@@ -1,4 +1,6 @@
-@taskMain("Task Admin") {
+@(jobs: List[TimerJob])
+
+@main("Task Admin") {
 	<div class="navbar navbar-fixed-top">
 		<div class="navbar-inner">
 			<div class="container">
@@ -16,34 +18,34 @@
 				<div id="newTask">
 					 <form class="form-horizontal">
 					 	<div class="control-group">
-					 		<label class="control-label" for="taskName">Task Name</label>
+					 		<label class="control-label" for="jobName">Job Name</label>
 					 		<div class="controls">
-					 			<input type="text" id="taskName">
+					 			<input type="text" id="jobName">
 					 		</div>
 					 	</div>
 					 	<div class="control-group">
-					 		<label class="control-label" for="className">Class Name</label>
+					 		<label class="control-label" for="jobClass">Class Name</label>
 					 		<div class="controls">
-					 			<input type="text" id="className">
+					 			<input type="text" id="jobClass">
 					 		</div>
 					 	</div>
 					 	<div class="control-group">
-					 		<label class="control-label" for="taskParam">Task Parameters</label>
+					 		<label class="control-label" for="jobParams">Task Parameters</label>
 					 		<div class="controls">
-					 			<textarea id="taskParam"></textarea>
+					 			<textarea id="jobParams"></textarea>
 					 		</div>
 					 	</div>
 					 	<div class="control-group">
-					 		<label class="control-label" for="startTime">Start Time</label>
+					 		<label class="control-label" for="jobStartTime">Start Time</label>
 					 		<div class="controls">
-					 			<input type="text" id="startTime">
+					 			<input type="text" id="jobStartTime">
 					 			<span class="help-block">MM/DD/YYYY HH:MM:SS</span>
 					 		</div>
 					 	</div>
 					 	<div class="control-group">
-					 		<label class="control-label" for="interval">Interval</label>
+					 		<label class="control-label" for="jobInterval">Interval</label>
 					 		<div class="controls">
-					 			<input type="text" id="interval">
+					 			<input type="text" id="jobInterval">
 					 			<span class="help-block">-1 for non periodic tasks</span>
 					 		</div>
 					 	</div>
@@ -61,6 +63,9 @@
 						<th class="span2"> Next Start </th>
 						<th class="span1"> Interval </th>
 					</tr>
+					@jobs.map { job =>
+						@views.html.tasks.item(job)
+					}
 				</table>
 			</div>
 		</div>
