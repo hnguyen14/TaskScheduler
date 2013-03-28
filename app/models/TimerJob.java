@@ -4,12 +4,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import org.quartz.Job;
 import org.quartz.JobBuilder;
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
@@ -17,6 +14,7 @@ import org.quartz.TriggerBuilder;
 import play.db.ebean.Model;
 
 public class TimerJob extends Model{
+	
 	private static final long serialVersionUID = 710846763634438062L;
 
 	public String jobName;
@@ -24,6 +22,7 @@ public class TimerJob extends Model{
 	public String jobParams;
 	public String jobStartTime;
 	public String jobInterval;
+	public Trigger.TriggerState state;
 
 	public TimerJob(String jobName, String jobClass, String jobParams, String jobStartTime, String jobInterval) {
 		this.jobName = jobName;
@@ -44,6 +43,7 @@ public class TimerJob extends Model{
 		}
 		JobDetail jd = JobBuilder.newJob(classObject)
 				.withIdentity(jobName)
+				.storeDurably()
 				.usingJobData(jdm)
 				.build();
 		return jd;
@@ -53,6 +53,7 @@ public class TimerJob extends Model{
 			throws NumberFormatException, ParseException{
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		TriggerBuilder<Trigger> trigger = TriggerBuilder.newTrigger()
+				.withIdentity(jobName + "_trigger")
 				.startAt(df.parse(jobStartTime));
 
 		int interval = Integer.parseInt(jobInterval);

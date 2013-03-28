@@ -16,6 +16,7 @@
 		<div id="dashboard">
 			<div class="container">
 				<div id="newTask">
+					 <div class="alert alert-error newtask-alert"></div>	
 					 <form class="form-horizontal">
 					 	<div class="control-group">
 					 		<label class="control-label" for="jobName">Job Name</label>
@@ -33,6 +34,7 @@
 					 		<label class="control-label" for="jobParams">Task Parameters</label>
 					 		<div class="controls">
 					 			<textarea id="jobParams"></textarea>
+					 			<span class="help-block">param1=value1|param2=value2</span>
 					 		</div>
 					 	</div>
 					 	<div class="control-group">
@@ -46,7 +48,7 @@
 					 		<label class="control-label" for="jobInterval">Interval</label>
 					 		<div class="controls">
 					 			<input type="text" id="jobInterval">
-					 			<span class="help-block">-1 for non periodic tasks</span>
+					 			<span class="help-block">In seconds. -1 for non periodic tasks</span>
 					 		</div>
 					 	</div>
 					 	<div class="form-actions">

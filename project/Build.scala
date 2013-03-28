@@ -12,7 +12,9 @@ object ApplicationBuild extends Build {
     javaCore,
     javaJdbc,
     javaEbean,
+    "mysql" % "mysql-connector-java" % "5.1.18",
     "org.quartz-scheduler" % "quartz" % "2.1.7"
+    
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
