@@ -1,0 +1,17 @@
+org.quartz.threadPool.class = org.quartz.simpl.SimpleThreadPool
+org.quartz.scheduler.threadsInheritContextClassLoaderOfInitializer = true
+org.quartz.threadPool.threadCount = 3
+org.quartz.scheduler.instanceName = Sched1
+org.quartz.scheduler.instanceId = 1
+org.quartz.scheduler.rmi.export = false
+org.quartz.scheduler.rmi.proxy = false
+
+org.quartz.jobStore.class = org.quartz.impl.jdbcjobstore.JobStoreTX
+org.quartz.jobStore.driverDelegateClass = org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+
+org.quartz.jobStore.dataSource = TaskScheduler
+org.quartz.dataSource.TaskScheduler.driver = com.mysql.jdbc.Driver
+org.quartz.dataSource.TaskScheduler.URL = jdbc:mysql://localhost:3306/quartz	
+org.quartz.dataSource.TaskScheduler.user = quartz
+org.quartz.dataSource.TaskScheduler.password = quartz
+org.quartz.dataSource.TaskScheduler.maxConnections = 1
