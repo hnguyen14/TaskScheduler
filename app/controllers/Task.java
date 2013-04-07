@@ -48,4 +48,15 @@ public class Task extends Controller{
 
 		return ok(item.render(tj));
 	}
+	
+	public static Result delete() {
+		Map<String, String[]> params = request().body().asFormUrlEncoded();
+		String jobName = params.get("jobName")[0];
+		try {
+			SchedulerUtils.deleteJob(jobName);
+		} catch (SchedulerException se) {
+			System.out.println(se.getMessage());
+		}
+		return ok();
+	}
 }

@@ -14,6 +14,20 @@
 	margin-right: 10px;
 }
 
+.delete-icon {
+  display: block;
+  background-color: red;
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 11px;
+}
+
 .logo {
 	width: 15px;
 	height: 15px;
@@ -35,3 +49,31 @@
 .newtask-alert {
 	display: none;
 }
+
+.job-row {
+	div.name {
+		font-weight: bold;
+	}
+	div.next {
+		text-decoration: italic;
+		font-size:10px;
+	}
+	.actions {
+		float: right;
+		margin-top: -44px;
+		
+		.job-delete {
+			display: block;
+			opacity: 0.5;
+		}
+		.job-delete:hover {
+			opacity: 1;
+			text-decoration: none;
+		}
+	}
+}
+
+.job-modify {
+	display: none;
+}
+

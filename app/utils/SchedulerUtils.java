@@ -42,7 +42,8 @@ public class SchedulerUtils {
 		for (String groupName: groups) {
 			for(JobKey jobKey: instance.getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {
 				JobDetail jd = instance.getJobDetail(jobKey);
-				Trigger trigger = instance.getTrigger(new TriggerKey(jobKey.getName() + "_trigger"));
+				TriggerKey tk = new TriggerKey(jobKey.getName() + "_trigger");
+				Trigger trigger = instance.getTrigger(tk);
 				Date nextStart = trigger.getNextFireTime();
 				if (nextStart == null) {
 					nextStart = trigger.getStartTime();
@@ -60,7 +61,8 @@ public class SchedulerUtils {
 						jd.getJobClass().getCanonicalName(), 
 						paramStr, 
 						df.format(trigger.getNextFireTime()), 
-						""));
+						"",
+						instance.getTriggerState(tk)));
 			}
 
 		}
@@ -75,5 +77,11 @@ public class SchedulerUtils {
 		Trigger trigger = job.buildJobTrigger();
 
 		instance.scheduleJob(jd, trigger);
+	}
+	
+	public static void deleteJob(String name) throws SchedulerException {
+		if (instance == null)
+			initializeScheduler();
+		instance.deleteJob(new JobKey(name));
 	}
 }

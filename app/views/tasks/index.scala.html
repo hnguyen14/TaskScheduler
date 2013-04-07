@@ -21,33 +21,33 @@
 					 	<div class="control-group">
 					 		<label class="control-label" for="jobName">Job Name</label>
 					 		<div class="controls">
-					 			<input type="text" id="jobName">
+					 			<input type="text" name="jobName">
 					 		</div>
 					 	</div>
 					 	<div class="control-group">
 					 		<label class="control-label" for="jobClass">Class Name</label>
 					 		<div class="controls">
-					 			<input type="text" id="jobClass">
+					 			<input type="text" name="jobClass">
 					 		</div>
 					 	</div>
 					 	<div class="control-group">
 					 		<label class="control-label" for="jobParams">Task Parameters</label>
 					 		<div class="controls">
-					 			<textarea id="jobParams"></textarea>
+					 			<textarea name="jobParams"></textarea>
 					 			<span class="help-block">param1=value1|param2=value2</span>
 					 		</div>
 					 	</div>
 					 	<div class="control-group">
 					 		<label class="control-label" for="jobStartTime">Start Time</label>
 					 		<div class="controls">
-					 			<input type="text" id="jobStartTime">
+					 			<input type="text" name="jobStartTime">
 					 			<span class="help-block">MM/DD/YYYY HH:MM:SS</span>
 					 		</div>
 					 	</div>
 					 	<div class="control-group">
 					 		<label class="control-label" for="jobInterval">Interval</label>
 					 		<div class="controls">
-					 			<input type="text" id="jobInterval">
+					 			<input type="text" name="jobInterval">
 					 			<span class="help-block">In seconds. -1 for non periodic tasks</span>
 					 		</div>
 					 	</div>
@@ -58,13 +58,6 @@
 					 </form>
 				</div>
 				<table class="tasks table table-bordered table-hover">
-					<tr>
-						<th class="span2"> Name </th>
-						<th class="span4"> Classname </th>
-						<th class="span3"> Param </th>
-						<th class="span2"> Next Start </th>
-						<th class="span1"> Interval </th>
-					</tr>
 					@jobs.map { job =>
 						@views.html.tasks.item(job)
 					}

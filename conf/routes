@@ -8,6 +8,7 @@ GET     /                           controllers.Application.index()
 # Task home page
 GET 	/tasks						controllers.Task.index()
 POST 	/tasks/create				controllers.Task.create()
+POST 	/tasks/delete				controllers.Task.delete()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
