@@ -59,4 +59,27 @@ public class Task extends Controller{
 		}
 		return ok();
 	}
+	
+	public static Result update() {
+		Map<String, String[]> params = request().body().asFormUrlEncoded();
+		String jobName = params.get("jobName")[0];
+		String jobClass = params.get("jobClass")[0];
+		String jobParams = params.get("jobParams")[0];
+		String jobStartTime = params.get("jobStartTime")[0];
+		String jobInterval = params.get("jobInterval")[0];
+		System.out.println(jobName + " - " + jobClass + " -  " + jobParams + " -- " + jobStartTime + " --- " + jobInterval);
+		TimerJob tj = new TimerJob(jobName, jobClass, jobParams, jobStartTime, jobInterval);
+		try {
+			SchedulerUtils.deleteJob(jobName);
+			SchedulerUtils.scheduleJob(tj);
+		} catch (SchedulerException se) {
+			System.out.println(se.getMessage());
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println(cnfe.getMessage());
+		} catch (ParseException pe) {
+			System.out.println(pe.getMessage());
+		}
+
+		return ok(item.render(tj));
+	}
 }

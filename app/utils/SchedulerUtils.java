@@ -84,4 +84,9 @@ public class SchedulerUtils {
 			initializeScheduler();
 		instance.deleteJob(new JobKey(name));
 	}
+	
+	public static void updateJob(TimerJob job) throws SchedulerException, ClassNotFoundException, ParseException {
+		deleteJob(job.jobName);
+		scheduleJob(job);
+	}
 }

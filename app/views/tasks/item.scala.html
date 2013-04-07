@@ -2,56 +2,54 @@
 
 <tr>
 	<td class="job-row">
-		<div class="name">
-			@job.jobName
+		<div class="job-data">
+			<div class="name">@job.jobName</div>
+			<div class="next">Next run: @job.jobStartTime</div>
+			<div class="actions">
+				<a href="#" class="job-delete" data-job-key="@job.jobName"> <span class="delete-icon">-</span>
+				</a>
+			</div>
 		</div>
-		<div class="next">Next run: @job.jobStartTime</div>
-		<div class="actions">
-			<a href="#" class="job-delete" data-job-key="@job.jobName" alt="Delete">
-				<span class="delete-icon">-</span>
-			</a>
+		<div class="job-modify form-container">
+			<div class="alert alert-error newtask-alert"></div>
+			<form class="form-horizontal">
+				<div class="control-group">
+					<label class="control-label" for="jobName">Job Name</label>
+					<div class="controls">
+						<input type="text" name="jobName" value="@job.jobName">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="jobClass">Class Name</label>
+					<div class="controls">
+						<input type="text" name="jobClass" value="@job.jobClass">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="jobParams">Task
+						Parameters</label>
+					<div class="controls">
+						<textarea name="jobParams">@job.jobParams</textarea>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="jobStartTime">Start Time</label>
+					<div class="controls">
+						<input type="text" name="jobStartTime" value="@job.jobStartTime">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="jobInterval">Interval</label>
+					<div class="controls">
+						<input type="text" name="jobInterval"> <span
+							class="help-block">In seconds. -1 for non periodic tasks</span>
+					</div>
+				</div>
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary modify">Modify</button>
+					<button class="btn cancel">Cancel</button>
+				</div>
+			</form>
 		</div>
-	</td>
-</tr>
-<tr class="job-modify">
-	<td>
-		<div class="alert alert-error newtask-alert"></div>
-		<form class="form-horizontal">
-			<div class="control-group">
-				<label class="control-label" for="jobName">Job Name</label>
-				<div class="controls">
-					<input type="text" name="jobName" value="@job.jobName">
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="jobClass">Class Name</label>
-				<div class="controls">
-					<input type="text" name="jobClass" value="@job.jobClass">
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="jobParams">Task Parameters</label>
-				<div class="controls">
-					<textarea name="jobParams">@job.jobParams</textarea>
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="jobStartTime">Start Time</label>
-				<div class="controls">
-					<input type="text" name="jobStartTime" value="@job.jobStartTime">
-				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="jobInterval">Interval</label>
-				<div class="controls">
-					<input type="text" name="jobInterval"> <span
-						class="help-block">In seconds. -1 for non periodic tasks</span>
-				</div>
-			</div>
-			<div class="form-actions">
-				<button type="submit" class="btn btn-primary modify">Modify</button>
-				<button class="btn cancel">Cancel</button>
-			</div>
-		</form>
 	</td>
 </tr>
