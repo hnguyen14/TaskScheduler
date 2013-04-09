@@ -44,10 +44,6 @@ public class SchedulerUtils {
 				JobDetail jd = instance.getJobDetail(jobKey);
 				TriggerKey tk = new TriggerKey(jobKey.getName() + "_trigger");
 				Trigger trigger = instance.getTrigger(tk);
-				Date nextStart = trigger.getNextFireTime();
-				if (nextStart == null) {
-					nextStart = trigger.getStartTime();
-				}
 				String paramStr = "";
 				JobDataMap jdm = jd.getJobDataMap();
 				for(String key: jdm.getKeys()) {
@@ -69,7 +65,7 @@ public class SchedulerUtils {
 		return retVal;
 	}
 	
-	public static void scheduleJob(TimerJob job) throws SchedulerException, ClassNotFoundException, ParseException {
+	public static void scheduleJob(TimerJob job) throws ClassNotFoundException, NumberFormatException, ParseException, SchedulerException {
 		if (instance == null)
 			initializeScheduler();
 
@@ -85,7 +81,7 @@ public class SchedulerUtils {
 		instance.deleteJob(new JobKey(name));
 	}
 	
-	public static void updateJob(TimerJob job) throws SchedulerException, ClassNotFoundException, ParseException {
+	public static void updateJob(TimerJob job) throws ClassNotFoundException, NumberFormatException, ParseException, SchedulerException {
 		deleteJob(job.jobName);
 		scheduleJob(job);
 	}

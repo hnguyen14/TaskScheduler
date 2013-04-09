@@ -54,8 +54,7 @@ public class TimerJob extends Model{
 		return jd;
 	}
 
-	public Trigger buildJobTrigger() 
-			throws NumberFormatException, ParseException{
+	public Trigger buildJobTrigger() throws NumberFormatException, ParseException{
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		TriggerBuilder<Trigger> trigger = TriggerBuilder.newTrigger()
 				.withIdentity(jobName + "_trigger")
