@@ -97,6 +97,48 @@ public class Task extends Controller{
 			return badRequest(result);
 		}
 	}
+	
+	public static Result pause() {
+		String errorMessage = null;
+		String errorCode = null;
+		Map<String, String[]> params = request().body().asFormUrlEncoded();
+		String jobName = params.get("jobName")[0];
+		try {
+			SchedulerUtils.pauseJob(jobName);
+		} catch (SchedulerException se) {
+			errorMessage = se.getMessage();
+			errorCode = ERROR_SCHEDULER;
+		}
+		if (errorMessage == null) {
+			return ok();
+		} else {
+			ObjectNode result = Json.newObject();
+			result.put("error_message", errorMessage);
+			result.put("error_code", errorCode);
+			return badRequest(result);
+		}
+	}
+	
+	public static Result resume() {
+		String errorMessage = null;
+		String errorCode = null;
+		Map<String, String[]> params = request().body().asFormUrlEncoded();
+		String jobName = params.get("jobName")[0];
+		try {
+			SchedulerUtils.resumeJob(jobName);
+		} catch (SchedulerException se) {
+			errorMessage = se.getMessage();
+			errorCode = ERROR_SCHEDULER;
+		}
+		if (errorMessage == null) {
+			return ok();
+		} else {
+			ObjectNode result = Json.newObject();
+			result.put("error_message", errorMessage);
+			result.put("error_code", errorCode);
+			return badRequest(result);
+		}
+	}
 
 	public static Result update() {
 		String errorMessage = null;

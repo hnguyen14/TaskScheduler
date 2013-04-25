@@ -4,13 +4,15 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import models.TimerJob;
 
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
+import org.quartz.JobExecutionContext;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
@@ -38,7 +40,11 @@ public class SchedulerUtils {
 			initializeScheduler();
 		List<TimerJob> retVal = new ArrayList<TimerJob>();
 		List<String> groups = instance.getJobGroupNames();
+		Set<String> running = new HashSet<String>();
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		for (JobExecutionContext jec: instance.getCurrentlyExecutingJobs()) {
+			running.add(jec.getJobDetail().getKey().getName());
+		}
 		for (String groupName: groups) {
 			for(JobKey jobKey: instance.getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {
 				JobDetail jd = instance.getJobDetail(jobKey);
@@ -52,13 +58,16 @@ public class SchedulerUtils {
 				if (paramStr.length() > 1) {
 					paramStr = paramStr.substring(0, paramStr.length() - 1);
 				}
+				Trigger.TriggerState state = instance.getTriggerState(tk);
 				retVal.add(new TimerJob(
 						jobKey.getName(), 
 						jd.getJobClass().getCanonicalName(), 
 						paramStr, 
 						df.format(trigger.getNextFireTime()), 
 						"",
-						instance.getTriggerState(tk)));
+						running.contains(jobKey.getName()) ? 
+								"running" : 
+								(tk == null ? "normal" : tk.toString().toLowerCase())));
 			}
 
 		}
@@ -79,6 +88,18 @@ public class SchedulerUtils {
 		if (instance == null)
 			initializeScheduler();
 		instance.deleteJob(new JobKey(name));
+	}
+	
+	public static void pauseJob(String name) throws SchedulerException {
+		if (instance == null)
+			initializeScheduler();
+		instance.pauseJob(new JobKey(name));
+	}
+	
+	public static void resumeJob(String name) throws SchedulerException {
+		if (instance == null)
+			initializeScheduler();
+		instance.resumeJob(new JobKey(name));
 	}
 	
 	public static void updateJob(TimerJob job) throws ClassNotFoundException, NumberFormatException, ParseException, SchedulerException {

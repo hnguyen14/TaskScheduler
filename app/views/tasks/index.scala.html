@@ -57,9 +57,13 @@
 					 	</div>
 					 </form>
 				</div>
-				<table class="tasks table table-bordered table-hover">
-					@jobs.map { job =>
-						@views.html.tasks.item(job)
+				<table class="tasks table table-bordered">
+					@if(jobs.isEmpty) {
+						<tr><td class="nojob">No job found</td></tr>
+					} else {
+						@jobs.map { job =>
+							@views.html.tasks.item(job)
+						}
 					}
 				</table>
 			</div>

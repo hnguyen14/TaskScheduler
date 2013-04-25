@@ -1,13 +1,14 @@
 @(job: TimerJob)
 
 <tr>
-	<td class="job-row">
+	<td class="job-row @job.state">
 		<div class="job-data">
 			<div class="name">@job.jobName</div>
 			<div class="next">Next run: @job.jobStartTime</div>
 			<div class="actions">
-				<a href="#" class="job-delete" data-job-key="@job.jobName"> <span class="delete-icon">-</span>
-				</a>
+				<span class="job-delete icon-trash" data-job-action="delete" data-job-key="@job.jobName" data-toggle="tooltip" title="Remove job"></span>
+				<span class="job-pause icon-pause" data-job-action="pause" data-job-key="@job.jobName" data-toggle="tooltip" title="Pause job"></span>
+				<span class="job-resume icon-play" data-job-action="resume" data-job-key="@job.jobName" data-toggle="tooltip" title="Resume job"></span>
 			</div>
 		</div>
 		<div class="job-modify form-container">

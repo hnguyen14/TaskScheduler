@@ -20,6 +20,10 @@ getJobFormData = (form) ->
     jobStartTime: form.find('[name="jobStartTime"]').val()
     jobInterval: form.find('[name="jobInterval"]').val()
 
+appendTask = (data) ->
+  $('.table.tasks').find('.nojob').remove()
+  $('.table.tasks').append data
+
 handleError = (form, error) ->
   form.prev().text(error.error_message).show 500
   if (error.error_code == 'classNotFound')
@@ -30,6 +34,7 @@ handleError = (form, error) ->
     form.find('[name="jobInterval"]').parents('.control-group').addClass('error')
  
 $ ->
+
   $("#newTaskBtn, #newTask button.cancel").click ->
   	clearForm $("#newTask form"), true
 
@@ -37,7 +42,7 @@ $ ->
     form  = $(@)
     clearError form
     $.post("/tasks/create", getJobFormData(form), (data) ->
-      $("table.tasks").append data
+      appendTask(data)
     ).done( ->
       clearForm form, true
     ).fail((body) ->
@@ -51,7 +56,7 @@ $ ->
       clearError form
       $.post("/tasks/update", getJobFormData(form), (data) ->
         form.parents('tr').remove()
-        $("table.tasks").append data
+        appendTask(data)
       ).done( ->
         clearForm form, true
       ).fail((body) ->
@@ -76,9 +81,15 @@ $ ->
   	click: (e) ->
   		e.stopPropagation()
   		$target = $(e.target)
-  		$.post "/tasks/delete", 
-  			jobName: $target.parents('a').attr('data-job-key')
+  		action = $target.attr('data-job-action')
+  		$.post "/tasks/#{action}", 
+  			jobName: $target.attr('data-job-key')
   		, (data) ->
-  			$target.parents('tr').remove();
-  , '.job-delete'
+  			if action == 'delete'
+  				$target.parents('tr').remove();
+  			else if action == 'resume'
+  				$target.parents('.job-row').removeClass('paused')
+  			else if action == 'pause'
+  				$target.parents('.job-row').removeClass('normal').addClass('paused')
+  , '.job-delete, .job-pause, .job-resume'
 	

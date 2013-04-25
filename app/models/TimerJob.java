@@ -22,13 +22,13 @@ public class TimerJob extends Model{
 	public String jobParams;
 	public String jobStartTime;
 	public String jobInterval;
-	public Trigger.TriggerState state;
+	public String state;
 
 	public TimerJob(String jobName, String jobClass, String jobParams, String jobStartTime, String jobInterval) {
 		this(jobName, jobClass, jobParams, jobStartTime, jobInterval, null);
 	}
 
-	public TimerJob(String jobName, String jobClass, String jobParams, String jobStartTime, String jobInterval, Trigger.TriggerState state) {
+	public TimerJob(String jobName, String jobClass, String jobParams, String jobStartTime, String jobInterval, String state) {
 		this.jobName = jobName;
 		this.jobClass = jobClass;
 		this.jobParams = jobParams;
