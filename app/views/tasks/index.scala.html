@@ -57,6 +57,11 @@
 					 	</div>
 					 </form>
 				</div>
+				<div class="btn-group jobs-filter">
+  					<button class="btn" data-type="all">All</button>
+  					<button class="btn" data-type="running">Running</button>
+  					<button class="btn" data-type="paused">Paused</button>
+				</div>
 				<table class="tasks table table-bordered">
 					@if(jobs.isEmpty) {
 						<tr><td class="nojob">No job found</td></tr>

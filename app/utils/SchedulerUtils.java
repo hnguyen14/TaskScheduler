@@ -67,7 +67,7 @@ public class SchedulerUtils {
 						"",
 						running.contains(jobKey.getName()) ? 
 								"running" : 
-								(tk == null ? "normal" : tk.toString().toLowerCase())));
+								(tk == null ? "normal" : state.toString().toLowerCase())));
 			}
 
 		}

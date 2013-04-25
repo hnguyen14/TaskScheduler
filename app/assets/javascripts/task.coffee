@@ -92,4 +92,19 @@ $ ->
   			else if action == 'pause'
   				$target.parents('.job-row').removeClass('normal').addClass('paused')
   , '.job-delete, .job-pause, .job-resume'
+
+  $(document).on 
+  	click: (e) ->
+  		$target = $(e.target)
+  		type = $target.attr('data-type')
+  		if type == 'all'
+  			$('.job-row').show(200)
+  		else
+  			$('.job-row').each (idx, row) ->
+  				if $(row).hasClass(type)
+  					$(row).show(200)
+  				else
+  					$(row).hide(200)
+					
+  , '.jobs-filter .btn'
 	
