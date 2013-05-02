@@ -1,20 +1,15 @@
 package jobs;
 
-import org.quartz.Job;
-import org.quartz.JobDataMap;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
-
-public class Counter implements Job{
-
+public class Counter extends TimerJob {
 	@Override
-	public void execute(JobExecutionContext jec) throws JobExecutionException {
-		JobDataMap jdm = jec.getJobDetail().getJobDataMap();
-		
-		for (int i = 0; i < jdm.getInt("count"); i++) {
-			System.out.println("COUNT " + i);
+	protected void run() {
+		int count = jobParams.getInt("count");
+		for (int i = 0; i < count; i++) {
+			if (i % 100 == 0) {
+				log("Count = " + i);
+			}
 		}
+		
 	}
-	
 
 }

@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import models.TimerJob;
+import models.Job;
 
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
@@ -35,10 +35,10 @@ public class SchedulerUtils {
 		}
 	}
 
-	public static List<TimerJob> getAlljob() throws SchedulerException {
+	public static List<Job> getAlljob() throws SchedulerException {
 		if (instance == null)
 			initializeScheduler();
-		List<TimerJob> retVal = new ArrayList<TimerJob>();
+		List<Job> retVal = new ArrayList<Job>();
 		List<String> groups = instance.getJobGroupNames();
 		Set<String> running = new HashSet<String>();
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -59,7 +59,7 @@ public class SchedulerUtils {
 					paramStr = paramStr.substring(0, paramStr.length() - 1);
 				}
 				Trigger.TriggerState state = instance.getTriggerState(tk);
-				retVal.add(new TimerJob(
+				retVal.add(new Job(
 						jobKey.getName(), 
 						jd.getJobClass().getCanonicalName(), 
 						paramStr, 
@@ -74,7 +74,7 @@ public class SchedulerUtils {
 		return retVal;
 	}
 	
-	public static void scheduleJob(TimerJob job) throws ClassNotFoundException, NumberFormatException, ParseException, SchedulerException {
+	public static void scheduleJob(Job job) throws ClassNotFoundException, NumberFormatException, ParseException, SchedulerException {
 		if (instance == null)
 			initializeScheduler();
 
@@ -102,7 +102,7 @@ public class SchedulerUtils {
 		instance.resumeJob(new JobKey(name));
 	}
 	
-	public static void updateJob(TimerJob job) throws ClassNotFoundException, NumberFormatException, ParseException, SchedulerException {
+	public static void updateJob(Job job) throws ClassNotFoundException, NumberFormatException, ParseException, SchedulerException {
 		deleteJob(job.jobName);
 		scheduleJob(job);
 	}

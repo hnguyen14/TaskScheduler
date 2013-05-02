@@ -13,7 +13,7 @@ import org.quartz.TriggerBuilder;
 
 import play.db.ebean.Model;
 
-public class TimerJob extends Model{
+public class Job extends Model{
 	
 	private static final long serialVersionUID = 710846763634438062L;
 
@@ -24,11 +24,11 @@ public class TimerJob extends Model{
 	public String jobInterval;
 	public String state;
 
-	public TimerJob(String jobName, String jobClass, String jobParams, String jobStartTime, String jobInterval) {
+	public Job(String jobName, String jobClass, String jobParams, String jobStartTime, String jobInterval) {
 		this(jobName, jobClass, jobParams, jobStartTime, jobInterval, null);
 	}
 
-	public TimerJob(String jobName, String jobClass, String jobParams, String jobStartTime, String jobInterval, String state) {
+	public Job(String jobName, String jobClass, String jobParams, String jobStartTime, String jobInterval, String state) {
 		this.jobName = jobName;
 		this.jobClass = jobClass;
 		this.jobParams = jobParams;

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import models.TimerJob;
+import models.Job;
 
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
@@ -26,7 +26,7 @@ public class Task extends Controller{
 	public static final String ERROR_SCHEDULER = "scheduler";
 
 	public static Result index() {
-		List<TimerJob> jobs = new ArrayList<TimerJob>();
+		List<Job> jobs = new ArrayList<Job>();
 		try {
 			jobs = SchedulerUtils.getAlljob();
 		} catch (SchedulerException se) {
@@ -36,21 +36,21 @@ public class Task extends Controller{
 		return ok(index.render(jobs));
 	}
 
-	private static TimerJob getTimerJobFromRequest() {
+	private static Job getTimerJobFromRequest() {
 		Map<String, String[]> params = request().body().asFormUrlEncoded();
 		String jobName = params.get("jobName")[0];
 		String jobClass = params.get("jobClass")[0];
 		String jobParams = params.get("jobParams")[0];
 		String jobStartTime = params.get("jobStartTime")[0];
 		String jobInterval = params.get("jobInterval")[0];
-		return new TimerJob(jobName, jobClass, jobParams, jobStartTime, jobInterval);
+		return new Job(jobName, jobClass, jobParams, jobStartTime, jobInterval);
 	}
 
 
 	public static Result create()  {
 		String errorMessage = null;
 		String errorCode = null;
-		TimerJob tj = getTimerJobFromRequest();
+		Job tj = getTimerJobFromRequest();
 		try {
 			SchedulerUtils.scheduleJob(tj);
 		} catch (ClassNotFoundException cnfe) {
@@ -144,7 +144,7 @@ public class Task extends Controller{
 		String errorMessage = null;
 		String errorCode = null;
 		Map<String, String[]> params = request().body().asFormUrlEncoded();
-		TimerJob tj = getTimerJobFromRequest();
+		Job tj = getTimerJobFromRequest();
 		
 		try {
 			SchedulerUtils.deleteJob(params.get("jobOldName")[0]);
