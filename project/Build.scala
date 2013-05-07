@@ -12,6 +12,7 @@ object ApplicationBuild extends Build {
     javaCore,
     javaJdbc,
     javaEbean,
+    "com.typesafe" %% "play-plugins-mailer" % "2.1.0",
     "log4j" % "log4j" % "1.2.17",
     "mysql" % "mysql-connector-java" % "5.1.18",
     "org.quartz-scheduler" % "quartz" % "2.1.7"

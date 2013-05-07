@@ -7,7 +7,6 @@ import java.util.Map;
 
 import models.Job;
 
-import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.node.ObjectNode;
 import org.quartz.SchedulerException;
 
